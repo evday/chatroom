@@ -24,7 +24,7 @@ func processConn(conn net.Conn) {
 }
 
 func main() {
-	conn, err := net.Dial("tcp", "localhost:8080")
+	conn, err := net.Dial("tcp", "localhost:8000")
 	if err != nil {
 		fmt.Printf("conn server failed,err:%v\n", err)
 		return
