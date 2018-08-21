@@ -16,11 +16,7 @@ type Client struct {
 //保存在线用户  ClientAddr =====> Client
 var onlineMap = make(map[string]Client)
 
-//提示用户退出
-var isQuit = make(chan bool)
 
-//超时处理，对方是否有数据发送
-var hasData = make(chan bool)
 
 //消息管道
 var message = make(chan string)
@@ -69,6 +65,12 @@ func HandleConn(conn net.Conn) {
 	//提示我是谁
 	cli.C <- MakeMsg(cli, "i am here")
 	//阻塞防止退出
+	
+	//提示用户退出
+	isQuit := make(chan bool)
+
+	//超时处理，对方是否有数据发送
+	hasData := make(chan bool)
 
 	//新建一个协程处理用户发送过来的数据
 	go func() {
